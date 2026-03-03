@@ -1,0 +1,18 @@
+// Save this file as "SmartPhone.java" inside a folder named "mypack"
+package mypack; 
+
+// User-defined Interface
+interface Camera { 
+    void click(); 
+}
+
+// User-defined Class implementing the interface
+public class SmartPhone implements Camera {
+    public void click() { 
+        System.out.println("Photo captured using mypack.Camera!"); 
+    }
+    public static void main(String[] args) {
+        SmartPhone obj = new SmartPhone();
+        obj.click();
+    }
+}
