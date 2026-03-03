@@ -1,0 +1,25 @@
+import java.applet.*;
+import java.awt.*;
+import java.awt.event.*;
+
+/* <applet code="EventApplet" width="300" height="200"></applet> */
+public class EventApplet extends Applet implements ActionListener {
+    Button btn;
+    TextField txt;
+
+    public void init() {
+        txt = new TextField(20);
+        btn = new Button("Click Me");
+
+        // Registering the button with the listener
+        btn.addActionListener(this); 
+
+        add(txt);
+        add(btn);
+    }
+
+    // Overriding the actionPerformed method to handle the click
+    public void actionPerformed(ActionEvent e) {
+        txt.setText("Button Clicked!");
+    }
+}
