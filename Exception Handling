@@ -1,0 +1,12 @@
+public class ExceptionDemo {
+    public static void main(String[] args) {
+        try {
+            int data = 100 / 0; // Throws an exception
+        } catch (ArithmeticException e) {
+            System.out.println("Error: Cannot divide by zero.");
+        } finally {
+            System.out.println("Execution completed."); // Always runs
+        }
+        System.out.println("Program continues...");
+    }
+}
