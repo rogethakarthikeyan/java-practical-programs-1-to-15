@@ -1,0 +1,23 @@
+import java.applet.Applet;
+import java.awt.*;
+
+/* <applet code="FontStyleApplet.class" width="500" height="300"></applet> */
+
+public class FontStyleApplet extends Applet {
+    public void paint(Graphics g) {
+        // Message 1: Red, Serif, Bold, Size 20
+        g.setColor(Color.RED);
+        g.setFont(new Font("Serif", Font.BOLD, 20));
+        g.drawString("Welcome to Java Applets!", 50, 50);
+
+        // Message 2: Blue, SansSerif, Italic, Size 24
+        g.setColor(Color.BLUE);
+        g.setFont(new Font("SansSerif", Font.ITALIC, 24));
+        g.drawString("Exploring Colors and Fonts", 50, 100);
+
+        // Message 3: Green, Monospaced, Plain, Size 30
+        g.setColor(new Color(34, 139, 34)); // Custom Forest Green
+        g.setFont(new Font("Monospaced", Font.PLAIN, 30));
+        g.drawString("Error-Free Code!", 50, 160);
+    }
+}
