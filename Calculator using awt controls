@@ -1,0 +1,82 @@
+import java.awt.*;
+import java.awt.event.*;
+
+public class AWTCalculator extends Frame implements ActionListener {
+    TextField display;
+    Button[] numButtons = new Button[10];
+    Button addBtn, subBtn, mulBtn, divBtn, eqBtn, clrBtn;
+    double num1, num2, result;
+    char operator;
+
+    public AWTCalculator() {
+        // Frame setup
+        setTitle("AWT Calculator");
+        setSize(300, 400);
+        setLayout(new BorderLayout());
+
+        // Display field
+        display = new TextField();
+        display.setEditable(false);
+        add(display, BorderLayout.NORTH);
+
+        // Panel for buttons
+        Panel panel = new Panel();
+        panel.setLayout(new GridLayout(4, 4, 5, 5));
+
+        // Initialize number buttons
+        for (int i = 0; i < 10; i++) {
+            numButtons[i] = new Button(String.valueOf(i));
+            numButtons[i].addActionListener(this);
+        }
+
+        // Initialize operator buttons
+        addBtn = new Button("+"); subBtn = new Button("-");
+        mulBtn = new Button("*"); divBtn = new Button("/");
+        eqBtn = new Button("="); clrBtn = new Button("C");
+
+        Button[] ops = {addBtn, subBtn, mulBtn, divBtn, eqBtn, clrBtn};
+        for (Button b : ops) b.addActionListener(this);
+
+        // Add buttons to panel (Grid Layout)
+        panel.add(numButtons[7]); panel.add(numButtons[8]); panel.add(numButtons[9]); panel.add(divBtn);
+        panel.add(numButtons[4]); panel.add(numButtons[5]); panel.add(numButtons[6]); panel.add(mulBtn);
+        panel.add(numButtons[1]); panel.add(numButtons[2]); panel.add(numButtons[3]); panel.add(subBtn);
+        panel.add(clrBtn);         panel.add(numButtons[0]); panel.add(eqBtn);         panel.add(addBtn);
+
+        add(panel, BorderLayout.CENTER);
+
+        // Close window event
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) { System.exit(0); }
+        });
+
+        setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        String command = e.getActionCommand();
+
+        if (command.charAt(0) >= '0' && command.charAt(0) <= '9') {
+            display.setText(display.getText() + command);
+        } else if (command.equals("C")) {
+            display.setText("");
+        } else if (command.equals("=")) {
+            num2 = Double.parseDouble(display.getText());
+            switch (operator) {
+                case '+': result = num1 + num2; break;
+                case '-': result = num1 - num2; break;
+                case '*': result = num1 * num2; break;
+                case '/': result = num1 / num2; break;
+            }
+            display.setText(String.valueOf(result));
+        } else {
+            num1 = Double.parseDouble(display.getText());
+            operator = command.charAt(0);
+            display.setText("");
+        }
+    }
+
+    public static void main(String[] args) {
+        new AWTCalculator();
+    }
+}
