@@ -1,0 +1,57 @@
+import java.applet.Applet;
+import java.awt.*;
+import java.util.*;
+
+/* <applet code="AnalogClock.class" width="400" height="400"></applet> */
+
+public class AnalogClock extends Applet implements Runnable {
+    Thread t = null;
+
+    public void start() {
+        if (t == null) {
+            t = new Thread(this);
+            t.start();
+        }
+    }
+
+    public void run() {
+        while (true) {
+            try {
+                repaint(); // Refresh the clock every second
+                Thread.sleep(1000);
+            } catch (InterruptedException e) { }
+        }
+    }
+
+    public void paint(Graphics g) {
+        Calendar time = Calendar.getInstance();
+        int hour = time.get(Calendar.HOUR_OF_DAY) % 12;
+        int minute = time.get(Calendar.MINUTE);
+        int second = time.get(Calendar.SECOND);
+
+        int centerX = 200, centerY = 200;
+        
+        // 1. Draw Clock Face
+        g.setColor(Color.BLACK);
+        g.drawOval(50, 50, 300, 300);
+        
+        // 2. Draw Numbers (12, 3, 6, 9)
+        g.drawString("12", 195, 70);
+        g.drawString("3", 330, 205);
+        g.drawString("6", 195, 340);
+        g.drawString("9", 65, 205);
+
+        // 3. Draw Hands using Trigonometry
+        drawHand(g, centerX, centerY, (second * 6) - 90, 130, Color.RED);      // Second
+        drawHand(g, centerX, centerY, (minute * 6) - 90, 110, Color.BLUE);     // Minute
+        drawHand(g, centerX, centerY, (hour * 30 + minute / 2) - 90, 80, Color.BLACK); // Hour
+    }
+
+    private void drawHand(Graphics g, int x, int y, double angle, int length, Color c) {
+        double radians = Math.toRadians(angle);
+        int xEnd = x + (int) (Math.cos(radians) * length);
+        int yEnd = y + (int) (Math.sin(radians) * length);
+        g.setColor(c);
+        g.drawLine(x, y, xEnd, yEnd);
+    }
+}
